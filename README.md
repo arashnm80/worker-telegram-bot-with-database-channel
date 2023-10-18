@@ -1,2 +1,4 @@
-# worker-telegram-bot-with-database-channel
-serverless telegram bot hosted in a cloudflare worker that responses from a database channel
+# Serverless Telegram Bot With Database Channel
+- Youtube video guide: https://youtu.be/mE3yc4STGL8
+
+Special thanks to https://github.com/cvzi/telegram-bot-cloudflare for providing the initial template.
