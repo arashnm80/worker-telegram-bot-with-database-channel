@@ -68,10 +68,18 @@ async function onUpdate (update) {
  * Handle incoming Message
  * https://core.telegram.org/bots/api#message
  */
-function onMessage (message) {
+async function onMessage (message) {
   var command = message.text
   if(command in commands){
-    return copyMessage(message.chat.id, databaseChannel, commands[command])
+    if(Array.isArray(commands[command])){ // it is a list of messages
+      var returnMessage;
+      for (let c of commands[command]) {
+        returnMessage = await copyMessage(message.chat.id, databaseChannel, c)
+      }
+      return returnMessage;
+    } else { // it is a single message
+      return copyMessage(message.chat.id, databaseChannel, commands[command])
+    }
   } else {
     return sendPlainText(message.chat.id, 'command not defined.')
   }
@@ -130,4 +138,3 @@ async function copyMessage (chatId, fromChatId, messageId) {
     message_id: messageId
   }))).json()
 }
-
