@@ -11,7 +11,8 @@ const SECRET = "" // A-Z, a-z, 0-9, _ and -
 const commands = { // numbers are message IDs in the database channel
   "/example": 5, // can be a command
   "another example": 6, // can be a normal text
-  "حالت چطوره": 10 // can be in any language
+  "حالت چطوره": 10, // can be in any language
+  "/list": [15, 16, 17, 18] // can be a list of messages
 }
 
 
