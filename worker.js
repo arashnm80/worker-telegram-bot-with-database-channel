@@ -19,7 +19,8 @@ const commands = { // numbers are message IDs in the database channel
 /////////////////////////////////////////////////////////////////////////////////
 
 // other vars
-const WEBHOOK = '/endpoint'
+const WEBHOOK = '/endpoint' // don't change it unless you're a programmer and you know what you're doing
+const promoteMessage = 0 // set it to a non-zero id of a message to be sent as ad after every command (leave it to 0 if you don't need)
 
 /**
  * Wait for requests to the worker
@@ -71,16 +72,19 @@ async function onUpdate (update) {
  */
 async function onMessage (message) {
   var command = message.text
+  var returnMessage;
   if(command in commands){
     if(Array.isArray(commands[command])){ // it is a list of messages
-      var returnMessage;
       for (let c of commands[command]) {
         returnMessage = await copyMessage(message.chat.id, databaseChannel, c)
       }
-      return returnMessage;
     } else { // it is a single message
-      return copyMessage(message.chat.id, databaseChannel, commands[command])
+      returnMessage = await copyMessage(message.chat.id, databaseChannel, commands[command])
     }
+    if(promoteMessage !== 0){ // send promoteMessage if it exists (is non-zero)
+      await copyMessage(message.chat.id, databaseChannel, promoteMessage)
+    }
+    return returnMessage;
   } else {
     return sendPlainText(message.chat.id, 'command not defined.')
   }
