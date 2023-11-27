@@ -6,7 +6,6 @@
 
 const TOKEN = "" // Get it from @BotFather https://core.telegram.org/bots#6-botfather
 const databaseChannel = "" // database channel that holds responses
-const SECRET = "" // A-Z, a-z, 0-9, _ and -
 
 const commands = { // numbers are message IDs in the database channel
   "/example": 5, // can be a command
@@ -20,6 +19,7 @@ const commands = { // numbers are message IDs in the database channel
 
 // other vars
 const WEBHOOK = '/endpoint' // don't change it unless you're a programmer and you know what you're doing
+const SECRET = TOKEN.replace(/[^a-zA-Z0-9]/g, ''); // get SECRET from TOKEN, we could've set it manually to a random value with (A-Z, a-z, 0-9, _ and -) too
 const promoteMessage = 0 // set it to a non-zero id of a message to be sent as ad after every command (leave it to 0 if you don't need)
 
 /**
